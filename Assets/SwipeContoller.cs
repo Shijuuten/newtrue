@@ -20,12 +20,15 @@ public class SwipeController : MonoBehaviour
 
     [SerializeField] GameObject[] pageObjects;
 
+    [SerializeField] GameObject[] pageVideo;
+
     private void Awake()
     {
         currentPage = 1;
         targetPos = levelPagesRect.localPosition;
         UpdateBar();
         UpdateObjects();
+        UpdateObjectsVideo();
     }
 
     public void Next()
@@ -53,6 +56,7 @@ public class SwipeController : MonoBehaviour
         levelPagesRect.LeanMoveLocal(targetPos, tweenTime).setEase(tweenType);
         UpdateBar();
         UpdateObjects();
+        UpdateObjectsVideo();
     }
 
     void UpdateBar()
@@ -78,6 +82,22 @@ public class SwipeController : MonoBehaviour
         {
             pageObjects[currentPage - 1].SetActive(true);
         }
+    }
+
+    void UpdateObjectsVideo()
+    {
+        // Pastikan semua objek 3D nonaktif dulu
+        for (int i = 0; i < pageVideo.Length; i++)
+        {
+            if (pageVideo[i] != null)
+                pageVideo[i].SetActive(false);
+        }
+
+        // Aktifkan hanya objek yang sesuai dengan halaman sekarang
+        //if (currentPage - 1 < pageVideo.Length && pageVideo[currentPage - 1] != null)
+        //{
+        //    pageVideo[currentPage - 1].SetActive(true);
+        //}
     }
 
 }
